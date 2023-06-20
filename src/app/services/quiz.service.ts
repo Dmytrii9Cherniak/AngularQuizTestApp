@@ -10,7 +10,10 @@ import { TestCategoryModel } from '../models/test.category.model';
 })
 export class QuizService {
 
-  public userAnswers: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public correctAnswers: number = 0;
+  public incorrectAnswers: number = 0;
+  public totalAnswers: number = 0;
+  public totalQuizzesCompleted: number = 0;
   public isQuizInProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private httpClient: HttpClient) { }
@@ -22,5 +25,11 @@ export class QuizService {
   public getAllTestCategories() :Observable<TestCategoryModel> {
     return this.httpClient.get<TestCategoryModel>(`${environment.apiUrl}/api_category.php`);
   }
+
+  public recordAnswer(isCorrect: boolean): void {
+    isCorrect ? this.correctAnswers++ : this.incorrectAnswers++;
+    this.totalAnswers++;
+  }
+
 
 }

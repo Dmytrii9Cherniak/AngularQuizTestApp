@@ -10,34 +10,37 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.scss']
 })
-
 export class PlayComponent implements OnInit {
-
   public quizForm: FormGroup;
-  public testsList: Observable<QuizModel>;
+  public testsList: QuizModel;
   public isQuizInProgress: Observable<boolean>;
-  public currentQuestionIndex: number = 0;
+  public currentQuestionIndex = 0;
   public categoryValue: string;
+  public isAnswerCorrect = false;
 
   constructor(
     private quizService: QuizService,
     private router: Router,
     private formBuilder: FormBuilder
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     this.quizForm = this.formBuilder.group({
       selectedOption: ['', Validators.required]
     });
+
     this.isQuizInProgress = this.quizService.isQuizInProgress;
     this.categoryValue = JSON.parse(JSON.stringify(localStorage.getItem('category')));
-    this.testsList = this.quizService.getAllTestsQuestions(this.categoryValue);
-    console.log(this.categoryValue)
+
+    this.quizService.getAllTestsQuestions(this.categoryValue).subscribe((value: QuizModel) => {
+      this.testsList = value;
+    });
   }
 
   public nextQuestion(): void {
-    if (this.currentQuestionIndex != 9) {
+    if (this.currentQuestionIndex !== 9) {
       this.currentQuestionIndex++;
+      this.quizForm.reset();
     }
   }
 
@@ -45,9 +48,10 @@ export class PlayComponent implements OnInit {
     return this.quizForm.get('selectedOption');
   }
 
-  public getValue() {
-    const ty = this.getQuizFormValue()?.value;
-    console.log(ty);
+  public getValue() :void  {
+    const formValue = this.getQuizFormValue()?.value.trim();
+    const quizData: string = this.testsList.results[this.currentQuestionIndex].correct_answer;
+    this.isAnswerCorrect = formValue === quizData;
   }
 
   public startQuiz(): void {
@@ -64,5 +68,4 @@ export class PlayComponent implements OnInit {
     this.quizService.isQuizInProgress.next(false);
     this.router.navigate(['results']);
   }
-
 }
