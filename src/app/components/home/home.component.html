@@ -1,15 +1,25 @@
 <div class="homeComponent">
   <header>
     <h4> Hi) Select your quiz category or choose a random one </h4>
-    <button class="btn btn-success" (click)="getRandomQuizCategory()"> I`m lucky </button>
+    <button class="btn btn-success" (click)="getRandomQuizCategory()"> I'm lucky </button>
   </header>
   <main>
-    <ul>
-      <li *ngFor="let category of (categoriesList | async)?.trivia_categories"
-          class="list-group-item"> {{ category.name }}
-        <button class="btn btn-success"
-                (click)="getCategory(category.id, category.name)"> Select Category </button>
-      </li>
-    </ul>
+    <ng-container *ngIf="categoriesList | async as categories; else dataLoading">
+      <ul>
+        <li *ngFor="let category of categories?.trivia_categories" class="list-group-item">
+          {{ category.name }}
+          <button class="btn btn-success" (click)="getCategory(category.id, category.name)"> Select Category </button>
+        </li>
+      </ul>
+    </ng-container>
+
+    <ng-template #dataLoading>
+      <div class="spinner">
+        <h4> Loading </h4>
+        <div class="spinner-border text-secondary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </ng-template>
   </main>
 </div>

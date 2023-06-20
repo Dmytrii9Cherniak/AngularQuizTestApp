@@ -14,24 +14,22 @@ export class HomeComponent implements OnInit {
 
   public categoriesList: Observable<TestCategoryModel>;
 
-  constructor(private quizService: QuizService, private router: Router) {}
+  constructor(
+    private quizService: QuizService,
+    private router: Router
+  ) {}
 
   ngOnInit() :void {
-    this.getAllTestsList();
-  }
-
-  public getAllTestsList(): void {
     this.categoriesList = this.quizService.getAllTestCategories();
   }
 
-  public getCategory(id: any, name: string) {
-    localStorage.setItem('category', id)
-    this.quizService.resultsData.next(id)
+  public getCategory(id: number, name: string) :void {
+    localStorage.setItem('category', JSON.stringify(id));
     this.router.navigate(['play']);
-    console.log(id, name);
   }
 
   public getRandomQuizCategory(): void {
+    this.quizService.isQuizInProgress.next(true);
     this.categoriesList.pipe(take(1)).toPromise().then((categories): void => {
       if (categories) {
         const randomIndex: number = Math.floor(Math.random() * categories.trivia_categories.length);

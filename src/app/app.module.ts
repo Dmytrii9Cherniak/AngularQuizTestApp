@@ -9,6 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PlayComponent } from "./components/play/play.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     NgbModule,

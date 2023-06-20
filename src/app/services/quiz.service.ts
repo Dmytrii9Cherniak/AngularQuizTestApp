@@ -10,7 +10,7 @@ import { TestCategoryModel } from '../models/test.category.model';
 })
 export class QuizService {
 
-  public resultsData: BehaviorSubject<any> = new BehaviorSubject<any>('');
+  public userAnswers: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public isQuizInProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private httpClient: HttpClient) { }
