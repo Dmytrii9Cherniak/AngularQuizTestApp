@@ -1,0 +1,15 @@
+<div class="homeComponent">
+  <header>
+    <h4> Hi) Select your quiz category or choose a random one </h4>
+    <button class="btn btn-success" (click)="getRandomQuizCategory()"> I`m lucky </button>
+  </header>
+  <main>
+    <ul>
+      <li *ngFor="let category of (categoriesList | async)?.trivia_categories"
+          class="list-group-item"> {{ category.name }}
+        <button class="btn btn-success"
+                (click)="getCategory(category.id, category.name)"> Select Category </button>
+      </li>
+    </ul>
+  </main>
+</div>

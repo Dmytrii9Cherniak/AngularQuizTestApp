@@ -1,0 +1,27 @@
+<main>
+
+  <div *ngIf="!(isQuizInProgress | async)" class="startQuiz">
+    <h1> Welcome to the Quiz! </h1>
+    <h2> Quiz Title  - {{ categoryValue }} </h2>
+    <article>
+      <button class="btn btn-primary"> Change Category </button>
+      <button (click)="startQuiz()" class="btn btn-secondary"> Start </button>
+    </article>
+  </div>
+
+  <div *ngIf="(isQuizInProgress | async)">
+    <h2>Question {{ currentQuestionIndex + 1 }}</h2>
+    <button class="btn btn-warning"
+            (click)="cancelQuiz()"> Cancel quiz </button>
+    <div *ngIf="(testsList | async) as quizData">
+      <p> {{ quizData.results[currentQuestionIndex].question }} </p>
+      <div>
+          <button class="btn btn-secondary"> {{ quizData.results[currentQuestionIndex].correct_answer }} </button>
+        <div *ngFor="let answer of quizData.results[currentQuestionIndex].incorrect_answers">
+          <button class="btn btn-secondary" (click)="nextQuestion(answer)">{{ answer }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
