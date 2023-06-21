@@ -36,15 +36,15 @@
                 </label>
               </div>
               <div class="form-check"
-                   *ngFor="let answer of testsList.results[currentQuestionIndex].incorrect_answers">
+                   *ngFor="let answer of testsList.results[currentQuestionIndex].incorrect_answers; let i = index">
                 <input class="form-check-input"
                        formControlName="selectedOption"
                        type="radio"
-                       id="wrongAnswer"
+                       id="wrongAnswer{{ i }}"
                        value="{{ answer }}"
                        (change)="getValue()"
                 />
-                <label class="form-check-label" for="wrongAnswer">
+                <label class="form-check-label" for="wrongAnswer{{ i }}">
                   {{ answer }}
                 </label>
               </div>

@@ -65,7 +65,7 @@ export class PlayComponent implements OnInit {
 
   public goHomeCancelQuiz(): void {
     this.quizService.isQuizInProgress.next(false);
-    this.router.navigate(['home']);
+    this.router.navigate(['']);
   }
 
   public finishQuiz(): void {
