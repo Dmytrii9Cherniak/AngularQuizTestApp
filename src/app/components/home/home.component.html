@@ -1,8 +1,8 @@
 <div class="homeComponent">
-  <header>
+  <div>
     <h4> Hi) Select your quiz category or choose a random one </h4>
     <button class="btn btn-success" (click)="getRandomQuizCategory()"> I'm lucky </button>
-  </header>
+  </div>
   <main>
     <div *ngIf="categoriesList | async as categories; else dataLoading">
       <ul>
