@@ -53,7 +53,7 @@ export class PlayComponent implements OnInit {
     return this.quizForm.get('selectedOption');
   }
 
-  public getValue() :void  {
+  public getValueAndCheckCorrectAnswer() :void  {
     const formValue = this.getQuizFormValue()?.value.trim();
     const quizData: string = this.testsList.results[this.currentQuestionIndex].correct_answer;
     this.isAnswerCorrect = formValue === quizData;

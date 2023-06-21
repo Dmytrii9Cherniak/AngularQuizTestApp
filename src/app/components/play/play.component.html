@@ -29,7 +29,7 @@
                        type="radio"
                        id="rightAnswer"
                        value="{{ testsList.results[currentQuestionIndex].correct_answer }}"
-                       (change)="getValue()"
+                       (change)="getValueAndCheckCorrectAnswer()"
                 />
                 <label class="form-check-label" for="rightAnswer">
                   {{ testsList.results[currentQuestionIndex].correct_answer }}
@@ -42,7 +42,7 @@
                        type="radio"
                        id="wrongAnswer{{ i }}"
                        value="{{ answer }}"
-                       (change)="getValue()"
+                       (change)="getValueAndCheckCorrectAnswer()"
                 />
                 <label class="form-check-label" for="wrongAnswer{{ i }}">
                   {{ answer }}
