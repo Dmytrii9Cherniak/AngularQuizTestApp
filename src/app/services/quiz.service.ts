@@ -13,8 +13,6 @@ export class QuizService {
   public totalIncorrectAnswers: number = 0;
   public totalCorrectAnswers: number = 0;
   public totalQuizzesCompleted: number = 0;
-  public currentIncorrectAnswers: number = 0;
-  public currentCorrectAnswers: number = 0;
   public isQuizInProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private httpClient: HttpClient) { }

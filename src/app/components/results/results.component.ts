@@ -12,8 +12,6 @@ export class ResultsComponent implements OnInit {
   public totalQuizPlayed: number;
   public totalIncorrectAnswers: number;
   public totalCorrectAnswers: number;
-  public currentIncorrectAnswers: number;
-  public currentCorrectAnswers: number;
   public categoryQuiz: string;
 
   constructor(
@@ -26,8 +24,6 @@ export class ResultsComponent implements OnInit {
     this.totalQuizPlayed = this.quizService.totalQuizzesCompleted;
     this.totalIncorrectAnswers = this.quizService.totalIncorrectAnswers;
     this.totalCorrectAnswers = this.quizService.totalCorrectAnswers;
-    this.currentIncorrectAnswers = this.quizService.currentIncorrectAnswers;
-    this.currentCorrectAnswers = this.quizService.totalCorrectAnswers;
   }
 
   public goToQuizList(): void {

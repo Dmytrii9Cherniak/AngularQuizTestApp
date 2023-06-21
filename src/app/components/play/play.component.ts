@@ -19,8 +19,6 @@ export class PlayComponent implements OnInit {
   public categoryValue: string;
   public categoryName: string;
   public isAnswerCorrect: boolean = false;
-  public currentIncorrectAnswers: number = 0;
-  public currentCorrectAnswers: number = 0;
 
   constructor(
     private quizService: QuizService,
@@ -39,8 +37,8 @@ export class PlayComponent implements OnInit {
     this.quizService
       .getAllTestsQuestions(this.categoryValue)
       .subscribe((value: QuizModel) :void => {
-      this.testsList = value;
-    });
+        this.testsList = value;
+      });
   }
 
   public nextQuestion(): void {
@@ -55,11 +53,10 @@ export class PlayComponent implements OnInit {
     return this.quizForm.get('selectedOption');
   }
 
-  public getValueAndCheckCorrectAnswer() :void  {
+  public getValueAndCheckCorrectAnswer(): void {
     const formValue = this.getQuizFormValue()?.value.trim();
     const quizData: string = this.testsList.results[this.currentQuestionIndex].correct_answer;
     this.isAnswerCorrect = formValue === quizData;
-    this.isAnswerCorrect ? this.currentCorrectAnswers++ : this.currentIncorrectAnswers++
   }
 
   public startQuiz(): void {
@@ -68,8 +65,6 @@ export class PlayComponent implements OnInit {
 
   public goHomeCancelQuiz(): void {
     this.quizService.isQuizInProgress.next(false);
-    this.currentIncorrectAnswers = 0;
-    this.currentCorrectAnswers = 0;
     this.router.navigate(['']);
   }
 
@@ -77,8 +72,6 @@ export class PlayComponent implements OnInit {
     this.quizService.isQuizInProgress.next(false);
     this.nextQuestion();
     this.quizService.totalQuizzesCompleted++;
-    this.quizService.currentIncorrectAnswers = this.currentIncorrectAnswers;
-    this.quizService.currentCorrectAnswers = this.currentCorrectAnswers;
     this.router.navigate(['results']);
   }
 }
