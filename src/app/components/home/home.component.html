@@ -4,14 +4,14 @@
     <button class="btn btn-success" (click)="getRandomQuizCategory()"> I'm lucky </button>
   </header>
   <main>
-    <ng-container *ngIf="categoriesList | async as categories; else dataLoading">
+    <div *ngIf="categoriesList | async as categories; else dataLoading">
       <ul>
         <li *ngFor="let category of categories?.trivia_categories" class="list-group-item">
           {{ category.name }}
           <button class="btn btn-success" (click)="getCategory(category.id, category.name)"> Select Category </button>
         </li>
       </ul>
-    </ng-container>
+    </div>
 
     <ng-template #dataLoading>
       <div class="spinner">

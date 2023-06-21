@@ -17,6 +17,7 @@ export class PlayComponent implements OnInit {
   public isQuizInProgress: Observable<boolean>;
   public currentQuestionIndex: number = 0;
   public categoryValue: string;
+  public categoryName: string;
   public isAnswerCorrect: boolean = false;
 
   constructor(
@@ -31,13 +32,13 @@ export class PlayComponent implements OnInit {
     });
 
     this.isQuizInProgress = this.quizService.isQuizInProgress;
+    this.categoryName = JSON.parse(JSON.stringify(localStorage.getItem('categoryName')));
     this.categoryValue = JSON.parse(JSON.stringify(localStorage.getItem('category')));
     this.quizService
       .getAllTestsQuestions(this.categoryValue)
       .subscribe((value: QuizModel) :void => {
       this.testsList = value;
     });
-    console.log(this.currentQuestionIndex);
   }
 
   public nextQuestion(): void {
@@ -45,7 +46,6 @@ export class PlayComponent implements OnInit {
       this.currentQuestionIndex++;
       this.quizForm.reset();
     }
-    console.log(this.currentQuestionIndex);
     this.quizService.recordAnswer(this.isAnswerCorrect);
   }
 
@@ -69,10 +69,9 @@ export class PlayComponent implements OnInit {
   }
 
   public finishQuiz(): void {
-    this.getQuizFormValue()?.reset();
+    this.quizService.isQuizInProgress.next(false);
     this.nextQuestion();
     this.quizService.totalQuizzesCompleted++;
-    this.quizService.isQuizInProgress.next(false);
     this.router.navigate(['results']);
   }
 }

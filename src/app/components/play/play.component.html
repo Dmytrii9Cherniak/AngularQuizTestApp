@@ -2,7 +2,7 @@
 
   <div *ngIf="!(isQuizInProgress | async)" class="startQuiz">
     <h1> Welcome to the Quiz! </h1>
-    <h2> Quiz Title - {{ categoryValue }} </h2>
+    <h2> Quiz Title - {{ categoryName }} </h2>
     <h2> Number of questions in the quiz - 10 </h2>
     <article>
       <button class="btn btn-primary" (click)="goHomeCancelQuiz()"> Change Category </button>
@@ -11,54 +11,59 @@
   </div>
 
   <div *ngIf="(isQuizInProgress | async)">
-    <form [formGroup]="quizForm" (keydown.enter)="$event.preventDefault()">
-      <h2> Question {{ currentQuestionIndex + 1 }}</h2>
-      <button class="btn btn-warning" (click)="goHomeCancelQuiz()"> Cancel quiz </button>
-      <main *ngIf="testsList">
-        <article>
-          <p> {{ testsList.results[currentQuestionIndex].question }} </p>
-          <div class="answersBlock">
+      <form [formGroup]="quizForm" (keydown.enter)="$event.preventDefault()" class="form">
+        <header>
+          <h2> Question {{ currentQuestionIndex + 1 }}</h2>
+          <button class="btn btn-warning" (click)="goHomeCancelQuiz()"> Cancel quiz </button>
+        </header>
 
-            <div class="form-check">
-              <input class="form-check-input"
-                     formControlName="selectedOption"
-                     type="radio"
-                     id="rightAnswer"
-                     value="{{ testsList.results[currentQuestionIndex].correct_answer }}"
-                     (change)="getValue()"
-              />
-              <label class="form-check-label" for="rightAnswer">
-                {{ testsList.results[currentQuestionIndex].correct_answer }}
-              </label>
+        <main *ngIf="testsList">
+          <article class="articleAnswers">
+            <p> {{ testsList.results[currentQuestionIndex].question }} </p>
+
+            <div class="answersBlock">
+
+              <div class="form-check">
+                <input class="form-check-input"
+                       formControlName="selectedOption"
+                       type="radio"
+                       id="rightAnswer"
+                       value="{{ testsList.results[currentQuestionIndex].correct_answer }}"
+                       (change)="getValue()"
+                />
+                <label class="form-check-label" for="rightAnswer">
+                  {{ testsList.results[currentQuestionIndex].correct_answer }}
+                </label>
+              </div>
+              <div class="form-check"
+                   *ngFor="let answer of testsList.results[currentQuestionIndex].incorrect_answers">
+                <input class="form-check-input"
+                       formControlName="selectedOption"
+                       type="radio"
+                       id="wrongAnswer"
+                       value="{{ answer }}"
+                       (change)="getValue()"
+                />
+                <label class="form-check-label" for="wrongAnswer">
+                  {{ answer }}
+                </label>
+              </div>
+              <button
+                (click)="nextQuestion()"
+                class="btn btn-secondary"
+                *ngIf="currentQuestionIndex !== 9"
+                [disabled]="!quizForm.valid"
+              > Next question </button>
+              <button
+                (click)="finishQuiz()"
+                *ngIf="currentQuestionIndex === 9"
+                class="btn btn-light"
+                [disabled]="quizForm.invalid"
+              > Finish </button>
             </div>
-            <div class="form-check" *ngFor="let answer of testsList.results[currentQuestionIndex].incorrect_answers">
-              <input class="form-check-input"
-                     formControlName="selectedOption"
-                     type="radio"
-                     id="wrongAnswer"
-                     value="{{ answer }}"
-                     (change)="getValue()"
-              />
-              <label class="form-check-label" for="wrongAnswer">
-                {{ answer }}
-              </label>
-            </div>
-            <button
-              (click)="nextQuestion()"
-              class="btn btn-secondary"
-              *ngIf="currentQuestionIndex !== 9"
-              [disabled]="!quizForm.valid"
-            > Next question </button>
-            <button
-              (click)="finishQuiz()"
-              *ngIf="currentQuestionIndex === 9"
-              class="btn btn-light"
-              [disabled]="quizForm.invalid"
-            > Finish </button>
-          </div>
-        </article>
-      </main>
-    </form>
+          </article>
+        </main>
+      </form>
   </div>
 
 </main>

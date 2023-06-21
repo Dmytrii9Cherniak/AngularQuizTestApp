@@ -21,7 +21,7 @@ export class ResultsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.categoryQuiz = this.quizService.categoryName.getValue();
+    this.categoryQuiz = JSON.parse(JSON.stringify(localStorage.getItem('categoryName')));
     this.quizPlayed = this.quizService.totalQuizzesCompleted;
     this.totalAnswers = this.quizService.totalAnswers;
     this.incorrectAnswers = this.quizService.incorrectAnswers;

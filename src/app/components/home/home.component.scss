@@ -1,6 +1,6 @@
 .homeComponent {
   width: 100%;
-  height: calc(100vh - 76px);
+  height: 100vh;
   padding: 40px 60px;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,12 @@
 
   main {
     width: 100%;
+
+    .listCategories {
+      display: flex;
+      justify-content: center;
+      column-gap: 20px;
+    }
 
     ul {
       list-style-type: none;
@@ -53,10 +59,22 @@
   }
 }
 
+
 @media screen and (max-width: 810px) {
   .homeComponent header {
     flex-direction: column;
     row-gap: 20px;
   }
+}
 
+@media screen and (max-width: 588px) {
+  .homeComponent {
+    padding: 40px 20px;
+
+    main ul {
+      width: 100%;
+        padding-right: 26px
+
+    }
+  }
 }

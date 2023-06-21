@@ -10,11 +10,12 @@ import { PlayComponent } from "./components/play/play.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import {QuizInProgressGuard} from "./guards/leavePageDuringQuizGuard";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'play', component: PlayComponent },
+  { path: 'play', component: PlayComponent, canDeactivate: [QuizInProgressGuard] },
   { path: 'results', component: ResultsComponent }
 ]
 
@@ -33,7 +34,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [QuizInProgressGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

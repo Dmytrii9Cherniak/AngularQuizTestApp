@@ -20,17 +20,18 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() :void {
+    localStorage.removeItem('categoryName');
+    this.quizService.isQuizInProgress.next(false);
     this.categoriesList = this.quizService.getAllTestCategories();
   }
 
   public getCategory(id: number, name: string) :void {
-    this.quizService.categoryName.next(name);
     localStorage.setItem('category', JSON.stringify(id));
+    localStorage.setItem('categoryName', name);
     this.router.navigate(['play']);
   }
 
   public getRandomQuizCategory(): void {
-    this.quizService.isQuizInProgress.next(true);
     this.categoriesList.pipe(take(1)).toPromise().then((categories): void => {
       if (categories) {
         const randomIndex: number = Math.floor(Math.random() * categories.trivia_categories.length);
