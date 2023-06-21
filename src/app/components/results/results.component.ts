@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
 })
 export class ResultsComponent implements OnInit {
 
-  public quizPlayed: number;
-  public totalAnswers: number;
-  public incorrectAnswers: number;
-  public correctAnswers: number;
+  public totalQuizPlayed: number;
+  public totalIncorrectAnswers: number;
+  public totalCorrectAnswers: number;
+  public currentIncorrectAnswers: number;
+  public currentCorrectAnswers: number;
   public categoryQuiz: string;
 
   constructor(
@@ -22,10 +23,11 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryQuiz = JSON.parse(JSON.stringify(localStorage.getItem('categoryName')));
-    this.quizPlayed = this.quizService.totalQuizzesCompleted;
-    this.totalAnswers = this.quizService.totalAnswers;
-    this.incorrectAnswers = this.quizService.incorrectAnswers;
-    this.correctAnswers = this.quizService.correctAnswers;
+    this.totalQuizPlayed = this.quizService.totalQuizzesCompleted;
+    this.totalIncorrectAnswers = this.quizService.totalIncorrectAnswers;
+    this.totalCorrectAnswers = this.quizService.totalCorrectAnswers;
+    this.currentIncorrectAnswers = this.quizService.currentIncorrectAnswers;
+    this.currentCorrectAnswers = this.quizService.totalCorrectAnswers;
   }
 
   public goToQuizList(): void {

@@ -10,10 +10,11 @@ import { TestCategoryModel } from '../models/test.category.model';
 })
 export class QuizService {
 
-  public correctAnswers: number = 0;
-  public incorrectAnswers: number = 0;
-  public totalAnswers: number = 0;
+  public totalIncorrectAnswers: number = 0;
+  public totalCorrectAnswers: number = 0;
   public totalQuizzesCompleted: number = 0;
+  public currentIncorrectAnswers: number = 0;
+  public currentCorrectAnswers: number = 0;
   public isQuizInProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private httpClient: HttpClient) { }
@@ -27,8 +28,7 @@ export class QuizService {
   }
 
   public recordAnswer(isCorrect: boolean): void {
-    isCorrect ? this.correctAnswers++ : this.incorrectAnswers++;
-    this.totalAnswers++;
+    isCorrect ? this.totalIncorrectAnswers++ : this.totalCorrectAnswers++;
   }
 
 
