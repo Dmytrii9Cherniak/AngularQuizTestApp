@@ -11,12 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./play.component.scss']
 })
 export class PlayComponent implements OnInit {
+
   public quizForm: FormGroup;
   public testsList: QuizModel;
   public isQuizInProgress: Observable<boolean>;
-  public currentQuestionIndex = 0;
+  public currentQuestionIndex: number = 0;
   public categoryValue: string;
-  public isAnswerCorrect = false;
+  public isAnswerCorrect: boolean = false;
 
   constructor(
     private quizService: QuizService,
@@ -31,10 +32,12 @@ export class PlayComponent implements OnInit {
 
     this.isQuizInProgress = this.quizService.isQuizInProgress;
     this.categoryValue = JSON.parse(JSON.stringify(localStorage.getItem('category')));
-
-    this.quizService.getAllTestsQuestions(this.categoryValue).subscribe((value: QuizModel) => {
+    this.quizService
+      .getAllTestsQuestions(this.categoryValue)
+      .subscribe((value: QuizModel) :void => {
       this.testsList = value;
     });
+    console.log(this.currentQuestionIndex);
   }
 
   public nextQuestion(): void {
@@ -42,6 +45,8 @@ export class PlayComponent implements OnInit {
       this.currentQuestionIndex++;
       this.quizForm.reset();
     }
+    console.log(this.currentQuestionIndex);
+    this.quizService.recordAnswer(this.isAnswerCorrect);
   }
 
   public getQuizFormValue() {
@@ -65,6 +70,8 @@ export class PlayComponent implements OnInit {
 
   public finishQuiz(): void {
     this.getQuizFormValue()?.reset();
+    this.nextQuestion();
+    this.quizService.totalQuizzesCompleted++;
     this.quizService.isQuizInProgress.next(false);
     this.router.navigate(['results']);
   }

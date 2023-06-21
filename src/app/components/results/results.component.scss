@@ -1,0 +1,25 @@
+.resultsPage {
+  width: 100%;
+  height: calc(100vh - 76px);
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+
+  ul li {
+    padding: 16px 20px;
+  }
+}
+
+@media screen and (max-width: 560px){
+  .resultsPage {
+    text-align: center;
+
+    header {
+      line-height: 1.6;
+    }
+  }
+}

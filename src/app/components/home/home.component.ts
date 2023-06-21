@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   public getCategory(id: number, name: string) :void {
+    this.quizService.categoryName.next(name);
     localStorage.setItem('category', JSON.stringify(id));
     this.router.navigate(['play']);
   }

@@ -1,1 +1,15 @@
-<p>results works!</p>
+<div class="resultsPage">
+
+  <header>
+    <h4> Results page - {{ categoryQuiz }} quiz </h4>
+  </header>
+
+  <ul class="list-group">
+    <li class="list-group-item"> Total quiz played - {{ quizPlayed }} </li>
+    <li class="list-group-item"> Total correct answers - {{ correctAnswers }} </li>
+    <li class="list-group-item"> Total incorrect answers - {{ incorrectAnswers }} </li>
+  </ul>
+
+  <button class="btn btn-primary" (click)="goToQuizList()"> Back to quiz list </button>
+
+</div>

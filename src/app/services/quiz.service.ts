@@ -15,6 +15,7 @@ export class QuizService {
   public totalAnswers: number = 0;
   public totalQuizzesCompleted: number = 0;
   public isQuizInProgress: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public categoryName: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private httpClient: HttpClient) { }
 

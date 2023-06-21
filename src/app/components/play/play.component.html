@@ -6,12 +6,12 @@
     <h2> Number of questions in the quiz - 10 </h2>
     <article>
       <button class="btn btn-primary" (click)="goHomeCancelQuiz()"> Change Category </button>
-      <button (click)="startQuiz()" class="btn btn-secondary"> Start </button>
+      <button (click)="startQuiz()" class="btn btn-secondary"> Play </button>
     </article>
   </div>
 
   <div *ngIf="(isQuizInProgress | async)">
-    <form [formGroup]="quizForm">
+    <form [formGroup]="quizForm" (keydown.enter)="$event.preventDefault()">
       <h2> Question {{ currentQuestionIndex + 1 }}</h2>
       <button class="btn btn-warning" (click)="goHomeCancelQuiz()"> Cancel quiz </button>
       <main *ngIf="testsList">
@@ -49,7 +49,12 @@
               *ngIf="currentQuestionIndex !== 9"
               [disabled]="!quizForm.valid"
             > Next question </button>
-            <button (click)="finishQuiz()" *ngIf="currentQuestionIndex === 9" class="btn btn-light"> Finish </button>
+            <button
+              (click)="finishQuiz()"
+              *ngIf="currentQuestionIndex === 9"
+              class="btn btn-light"
+              [disabled]="quizForm.invalid"
+            > Finish </button>
           </div>
         </article>
       </main>
